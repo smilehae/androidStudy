@@ -1,0 +1,12 @@
+public void onButton1Clicked(View v){
+        try {
+            Toast ToastView = Toast.makeText(this, "버튼이 눌렸습니다.", Toast.LENGTH_LONG);
+            int xOffset = Integer.parseInt(editText.getText().toString());
+            int yOffset = Integer.parseInt(editText2.getText().toString());
+            ToastView.setGravity(Gravity.TOP | Gravity.TOP, xOffset, yOffset);
+            ToastView.show();
+        }
+        catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+    }
