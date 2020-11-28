@@ -1,0 +1,83 @@
+package com.example.lab18_2_activity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Lab18_2Activity extends AppCompatActivity implements View.OnClickListener {
+
+    ViewPager viewPager;
+    FloatingActionButton fab;
+    RelativeLayout relativeLayout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lab18_2);
+
+        relativeLayout = findViewById(R.id.lab2_container);
+        viewPager = findViewById(R.id.lab2_viewpager);
+        viewPager.setAdapter(new MyPageAdapter(getSupportFragmentManager()));
+
+        TabLayout tabLayout = findViewById(R.id.lab2_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        fab = findViewById(R.id.lab2_fab);
+        fab.setOnClickListener(this);
+    }
+
+    class MyPageAdapter extends FragmentPagerAdapter {
+        List<Fragment> fragments = new ArrayList<>();
+        private String titles[] = new String[]{"TAB1","TAB2","TAB3"};
+        public MyPageAdapter(FragmentManager fm){
+            super(fm);
+            fragments.add(new OneFragment());
+            fragments.add(new TwoFragment());
+            fragments.add(new ThreeFragment());
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return this.fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return this.fragments.size();
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        Snackbar.make(relativeLayout,"I am SnackBar",Snackbar.LENGTH_LONG)
+                .setAction("MoreAction",new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }).show();
+    }
+}
